@@ -14,10 +14,11 @@
 			var myLat = 0;
 			var myLng = 0;
 			var request = new XMLHttpRequest();
-			var me = new google.maps.LatLng(myLat, myLng);
+ 
+
 			var myOptions = {
 						zoom: 8// The larger the zoom number, the bigger the zoom
-						center: me,
+						center: new google.maps.LatLng(myLat, myLng);,
 						mapTypeId: google.maps.MapTypeId.ROADMAP
 					};
 			var map;
@@ -32,7 +33,6 @@
 			}
 			
 			function getMyLocation() {
-				console.log("In getMyLocation()");
 				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
 					navigator.geolocation.getCurrentPosition(function(position) {
 						myLat = position.coords.latitude;
