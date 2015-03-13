@@ -26,7 +26,7 @@
 		var infowindow = new google.maps.InfoWindow();
 		var places;
 			
-		function initialize()
+		function init()
 		{
 			map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 			getMyLocation();
@@ -102,7 +102,7 @@
 	</script>
 </head>
 
-<body onload="initialize()">
+<body onload="init()">
 <div id="map-canvas"</div>
 </body>
 
