@@ -88,6 +88,12 @@
 					title: data[i].username+"\n"+distance(myLat, myLng, data[i].lat, data[i].lng),
 					map: map
 					});
+
+					google.maps.event.addListener(marker, 'click', function() {
+					infowindow.setContent(marker.title);
+					infowindow.open(map, marker);
+					});
+
 				}
 
 			}
