@@ -89,9 +89,9 @@
 					map: map
 					});
 
-					google.maps.event.addListener(marker, 'click', function() {
-					infowindow.setContent(marker.title);
-					infowindow.open(map, marker);
+					google.maps.event.addListener(this, 'click', function() {
+					infowindow.setContent(this.title);
+					infowindow.open(map, this);
 					});
 
 				}
