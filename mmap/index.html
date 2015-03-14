@@ -20,7 +20,7 @@
        		var vals = JSON.parse(xhr.responseText);
        		console.log(vals);
 			}
-			xhr.send("ColleenSayers", myLat, myLng);
+			xhr.send(ColleenSayers, myLat, myLng);
 
 			var me = new google.maps.LatLng(myLat, myLng);
 			var myOptions = {
