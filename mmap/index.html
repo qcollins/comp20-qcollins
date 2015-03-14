@@ -28,7 +28,7 @@
 
 			var me = new google.maps.LatLng(myLat, myLng);
 			var myOptions = {
-						zoom: 8, // The larger the zoom number, the bigger the zoom
+						zoom: 6, // The larger the zoom number, the bigger the zoom
 						center: me,
 						mapTypeId: google.maps.MapTypeId.ROADMAP
 					};
@@ -82,7 +82,7 @@
 				var i;
 				for(i=0; i<data.length; i++)
 				{
-					console.log(data[i].login);
+
 					marker = new google.maps.Marker({
 					position: new google.maps.LatLng(data[i].lat, data[i].lng),
 					title: "a "+data[i].login,
@@ -94,6 +94,7 @@
 					infowindow.setContent(this.title);
 					infowindow.open(map, this);
 					});
+					console.log(this.login);
 
 				}
 
