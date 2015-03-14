@@ -90,13 +90,17 @@
 					map: map
 					});
 
-					google.maps.event.addListener(this, 'click', function() {
-					infowindow.setContent(this.title);
-					infowindow.open(map, this);
-					});
-					console.log(this.login);
-
+					add_event(marker);
 				}
+			}
+
+			function add_event(marker1)
+			{
+				google.maps.event.addListener(marker1, 'click', function() {
+				infowindow.setContent(marker1.title);
+				infowindow.open(map, marker1);
+				});
+				console.log(marker1.login);
 
 			}
 			
