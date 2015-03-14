@@ -85,7 +85,8 @@
 					point=new google.maps.LatLng(data[i].lat, data[i].lng);
 					marker = new google.maps.Marker({
 					position: point,
-					title: data[i].username+"\n"+distance(myLat, myLng, data[i].lat, data[i].lng),
+					title: data[i].username,
+					//+"\n"+distance(myLat, myLng, data[i].lat, data[i].lng),
 					map: map
 					});
 
