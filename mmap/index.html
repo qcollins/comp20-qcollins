@@ -9,6 +9,10 @@
 		<link rel="stylesheet" href="style.css" />
 		
 		<script>
+
+			var navi_img=new Image();
+			icon.src="navi.jpg";
+
 			var myLat = 0;
 			var myLng = 0;
 			var xhr = new XMLHttpRequest();
@@ -66,7 +70,7 @@
 				marker = new google.maps.Marker({
 					position: me,
 					title: "Here I Am!"
-					icon: navi.jpg
+					icon: navi_img
 				});
 				marker.setMap(map);
 					
