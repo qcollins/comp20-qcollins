@@ -82,17 +82,20 @@
 				var i;
 				for(i=0; i<data.length; i++)
 				{
-
-					marker = new google.maps.Marker({
-					position: new google.maps.LatLng(data[i].lat, data[i].lng),
-					title: data[i].login+"\n"+distance(myLat, myLng, data[i].lat, data[i].lng),
-					map: map
-					});
-
+					make_new_marker(data[i]);
 					add_event(marker);
 				}
 			}
+			
+			function make_new_marker(obj)
+			{
+				marker = new google.maps.Marker({
+				position: new google.maps.LatLng(obj.lat, obj.lng),
+				title: obj.login+"\n"+distance(myLat, myLng, obj.lat, obj.lng),
+				map: map
+				});
 
+			}
 			function add_event(marker1)
 			{
 				google.maps.event.addListener(marker1, 'click', function() {
