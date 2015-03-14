@@ -11,7 +11,17 @@
 		<script>
 			var myLat = 0;
 			var myLng = 0;
-			var request = new XMLHttpRequest();
+			var xhr = new XMLHttpRequest();
+			var url = "https://secret-about-box.herokuapp.com/sendLocation"
+			xhr.open("POST",url, true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			xhr.onreadystatechange=function(){
+       		var vals = JSON.parse(xhr.responseText);
+       		console.log(vals);
+			}
+			xhr.send("ColleenSayers", myLat, myLng);
+
 			var me = new google.maps.LatLng(myLat, myLng);
 			var myOptions = {
 						zoom: 8, // The larger the zoom number, the bigger the zoom
@@ -62,13 +72,13 @@
 				});
 				
 				// Calling Google Places API
-				var request = {
+				var xhr = {
 					location: me,
 					radius: '500',
 					types: ['food']
 				};
 				service = new google.maps.places.PlacesService(map);
-				service.search(request, callback);
+				service.search(xhr, callback);
 			}
 			
 			// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
