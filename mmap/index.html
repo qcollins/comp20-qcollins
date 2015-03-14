@@ -82,10 +82,10 @@
 				var i;
 				for(i=0; i<data.length; i++)
 				{
+					console.log(data[i].login);
 					marker = new google.maps.Marker({
 					position: new google.maps.LatLng(data[i].lat, data[i].lng),
 					title: "a "+data[i].login,
-					console.log(data[i].login);
 					//+"\n"+distance(myLat, myLng, data[i].lat, data[i].lng),
 					map: map
 					});
