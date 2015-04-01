@@ -6,7 +6,23 @@
 	<title>Captain's Log</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script>
-	  // Most of your work will be done here...
+	$(document).ready(function(x){
+		localStorage.setItem("log", "");
+		var i=0;
+		$("#msg").keypress(function(y){
+			if(y.which==13){
+				$("#log").empty();
+				localStorage.setItem(i.toString(), "<p></p>"+Date.now()+" - "+$("#msg").val());
+				for(key in localStorage)
+				{
+					$("#log").prepend(localStorage.getItem(key));
+					console.log(key);
+				}
+				$("#msg").val('');
+				i++;
+			}
+		});
+	});
 	</script>
 </head>
 
