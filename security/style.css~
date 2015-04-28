@@ -12,7 +12,7 @@ body {
 }
 
 .subtitle{
-	font-size: 20px;
+	font-size: 23px;
 	font-weight: bold;
 	
 }
@@ -20,5 +20,11 @@ body {
 .name{
 	font-size: 14px;
 	text-align: center;
+}
+.subpoint{
+	margin-left:5em;
+}
+.caption{
+	text-decoration: underline;
 }
 

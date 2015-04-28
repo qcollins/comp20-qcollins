@@ -21,4 +21,11 @@ body {
 	font-size: 14px;
 	text-align: center;
 }
+.subpoint{
+	margin-left:5em;
+}
+.caption{
+	text-decoration: underline;
+	margin-left:5em;
+}
 

@@ -10,17 +10,38 @@
 
 <body>
 <p class="title">Security and Privacy Assessment of Client-Side and Server-Side<p>
-<p class="name">Quinn Collins</p>
+<p class="name"><a href="https://github.com/qcollins">Quinn Collins</a></p>
 <p class="name">4/24/2015</p>
 <p class="subtitle">Introduction:</p>
-<p></p>
+<p>This assignment outlines the security flaws of The Real Marauder's Map web application and the associated server developed by Danielle Zelin. The server reads in data in the form of a login, latitude, and longitude, and sends it to a web page that displays it in the form of points on a map. Although the server is susceptible to false data input, which defeats the purpose of the associated web page, this was not counted as a vulnerability. Rather, only vulnerabilities that could be exploited malicously (e.g. XSS, Database insertion), were counted.</p>
 <p class="subtitle">Methodology:</p>
-<p></p>
+<p>Attacks were carried out on the server in a black box style, using only methods that would be available to someone viewing the page. I ran the attacks on the heroku app <a href="http://radiant-cove-9171.herokuapp.com/">http://radiant-cove-9171.herokuapp.com/</a>. I used the webapp <a href="https://www.hurl.it/">hurl</a> as well as curl to send data to the server. </p>
 <p class="subtitle">Abstract of Findings:</p>
-<p></p>
+<p>All vulnerabilities were exploited by posting malicious user input. Vulnerabilities include Cross-Site Scripting attacks, including throwing alerts with javascript, posting images, and modifying the document object model. Other attacks performed include attacking the database itself by posting absurdly long logins and adding additional fields.</p>
 <p class="subtitle">Issues Found:</p>
-<p></p>
+<p> 1. Cross-Site Scripting: </p>
+<p class="subpoint">-Affects: GET API</p>
+<p class="subpoint">-Vulnerability: HIGH. Neither client-side nor server-side sanitization is performed so javascript can be inserted at will. This can be easily resolved by sanitizing characters necessary for an attack, "<", ">", and "&", for example. Replacing these with their associated HTML entities (&lt, &gt, and &amp respectively). Otherwise, XSS attacks can insert javascript that throwing alerts with javascript, posting images, and modifying the document object model</p>
+<p><img src="alert" alt="XSS alert" style="margin-left:5em"></p>
+<p class="caption">XSS alert</p>
+</br>
+<p><img src="picture" alt="adding picture" style="margin-left:5em"></p>
+<p class="caption">XSS picture insertion</p>
+</br>
+<p><img src="dom" alt="DOM modification" style="margin-left:5em"></p>
+<p class="caption">XSS DOM modification</p>
+</br>
+<p>2. adding malicious data to database</p>
+<p class="subpoint">-Affects: GET API</p>
+<p class="subpoint">Vulnerability: MEDIUM. The server allows additional fields to be posted and a near-infinite length of the "login" variable. This allows for insertion of excessive data into the database. While this is unlikely to slow down the database if the attack is conducted individually, the same attack by multiple users could cause slowing. Setting character limits on the fields and refusing to accept data with additional fields will solve the issue easily.</p>
+<p><img src="extradata" alt="excessive data in login variable" style="margin-left:5em"></p>
+<p class="caption">excessive data in the login variable, as shown in the source code</p>
+</br>
+<p><img src="extrafields" alt="excessive data in login variable" style="margin-left:5em"></p>
+<p class="caption">additional field entry, as shown from hurl</p>
+</br>
+</br>
 <p class="subtitle">Conclusion:</p>
-<p></p>
+<p>Vulnerabilities in the server allow for multiple attacks that can bring down both the server and client. By simply sanitizing data entries, setting character limits on entries and limits on possible fields, and allowing for only valid input, all of these issues can be easily resolved. These minor changes should be implemented as soon as possible to prevent further malicious attacks on the server and entry of false data. </p>
 </body>
 </html>
