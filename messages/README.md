@@ -1,12 +1,17 @@
 Quinn Collins
+
 3/12/2015
 
--I worked alone on this assignment
--I spent ~2 hours on this lab
+MESSAGES:
 
-pt. 2, loading data given a URI is not functional
-	XMLHttpRequest will not request data from a different origin or from your 
-	own machine because of Javascript's Same Origin Policy. Requesting data
-	from an outside source would compromise the security of the page. You can
-	only request data from a different web server if the other server's client-
-	side script has Cross-Origin Request Sharing enabled. 
+Displays text in a message-board form, takes data from JSON file. 
+
+Purpose:
+
+Uses JavaScript associative arrays.
+
+Using the JavaScript XMLHttpRequest object
+
+Parsing JSON data.
+
+Shows limitations of client-side JavaScript (e.g. can't display data from another source because of Cross-Origin Resource Sharing Policy).
