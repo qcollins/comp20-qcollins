@@ -2,22 +2,33 @@
 
 <html>
 
-<head>
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<title>Marauder's Map</title>
-	 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-	<link rel="stylesheet" href="style.css"/>
-
-	<!--copied from geolocation map example
-	https://github.com/tuftsdev/WebProgramming/blob/gh-//pages/examples/google_maps/geolocation_map.html
--->
-	<script>
+	<head>
+		<title>Marauder's Map</title>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places"></script>
+		<link rel="stylesheet" href="style.css" />
+		
+		<script>
 			var myLat = 0;
 			var myLng = 0;
-			var request = new XMLHttpRequest();
+			var xhr = new XMLHttpRequest();
+			var url = "https://shrouded-oasis.herokuapp.com/sendLocation"
+			xhr.open("POST",url, true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			xhr.onreadystatechange=function(){
+				if (xhr.readyState == 4 && xhr.status == 200){
+					var vals = JSON.parse(xhr.responseText);
+       				create_markers(vals);
+				}
+       		
+			}
+
+			xhr.send("login=ColleenSayers&lat=" + myLat + "&lng=" + myLng);
+
 			var me = new google.maps.LatLng(myLat, myLng);
 			var myOptions = {
-						zoom: 8// The larger the zoom number, the bigger the zoom
+						zoom: 6, // The larger the zoom number, the bigger the zoom
 						center: me,
 						mapTypeId: google.maps.MapTypeId.ROADMAP
 					};
@@ -26,14 +37,13 @@
 			var infowindow = new google.maps.InfoWindow();
 			var places;
 			
-			function initialize()
+			function init()
 			{
 				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 				getMyLocation();
 			}
 			
 			function getMyLocation() {
-				console.log("In getMyLocation()");
 				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
 					navigator.geolocation.getCurrentPosition(function(position) {
 						myLat = position.coords.latitude;
@@ -51,11 +61,16 @@
 				
 				// Update map and go there...
 				map.panTo(me);
-	
+
 				// Create a marker
+				var img={
+					url: "sword.png"
+				}
+
 				marker = new google.maps.Marker({
 					position: me,
-					title: "Here I Am!"
+					title: "Here I Am!",
+					icon: img
 				});
 				marker.setMap(map);
 					
@@ -64,47 +79,62 @@
 					infowindow.setContent(marker.title);
 					infowindow.open(map, marker);
 				});
-				
-				// Calling Google Places API
-				var request = {
-					location: me,
-					radius: '500',
-					types: ['food']
-				};
-				service = new google.maps.places.PlacesService(map);
-				service.search(request, callback);
 			}
-			
-			// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
-			function callback(results, status)
+
+			function create_markers(data)
 			{
-				if (status == google.maps.places.PlacesServiceStatus.OK) {
-					alert("Got places back!");
-					places = results;
-					for (var i = 0; i < results.length; i++) {
-						createMarker(results[i]);
-					}
+				var i;
+				for(i=0; i<data.length; i++)
+				{
+					make_new_marker(data[i]);
+					add_event(marker);
 				}
 			}
-			
-			function createMarker(place)
+
+			function make_new_marker(obj)
 			{
-				var placeLoc = place.geometry.location;
-				var marker = new google.maps.Marker({
-					map: map,
-					position: place.geometry.location
+				marker = new google.maps.Marker({
+				position: new google.maps.LatLng(obj.lat, obj.lng),
+				title: obj.login+"\n"+distance(myLat, myLng, obj.lat, obj.lng),
+				map: map
 				});
-				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.close();
-					infowindow.setContent(place.name);
-					infowindow.open(map, this);
+
+			}
+			function add_event(marker1)
+			{
+				google.maps.event.addListener(marker1, 'click', function() {
+				infowindow.setContent(marker1.title);
+				infowindow.open(map, marker1);
 				});
-      }
-	</script>
-</head>
+			}
+			
+			Number.prototype.toRadians = function() {
+				return this * Math.PI / 180;
+			}
 
-<body onload="initialize()">
-<div id="map-canvas"</div>
-</body>
+			function distance(lat1, lon1, lat2, lon2)
+			{
 
+
+				var R = 6371000; // metres
+				var φ1 = lat1.toRadians();
+				var φ2 = lat2.toRadians();
+				var Δφ = (lat2-lat1).toRadians();
+				var Δλ = (lon2-lon1).toRadians();
+
+				var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+        		Math.cos(φ1) * Math.cos(φ2) *
+        		Math.sin(Δλ/2) * Math.sin(Δλ/2);
+				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+				var d = R * c;
+				return d;
+			}
+
+		</script>
+	</head>
+	
+	<body onload="init()">
+		<div id="map_canvas"></div>
+	</body>
 </html>
