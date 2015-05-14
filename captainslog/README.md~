@@ -6,8 +6,8 @@ CAPTAIN'S LOG:
 A web page that displays entered text, similar to how a message board would function. 
 
 purpose:
--data persistence via local storage
--uses jquery
+ data persistence via local storage
+ uses jquery
 
 
 
