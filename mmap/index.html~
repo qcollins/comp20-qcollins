@@ -8,7 +8,7 @@
 	 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 	<link rel="stylesheet" href="style.css"/>
 
-	<!--copied from geolocation map example
+	<--copied from geolocation map example
 	https://github.com/tuftsdev/WebProgramming/blob/gh-//pages/examples/google_maps/geolocation_map.html
 -->
 	<script>
